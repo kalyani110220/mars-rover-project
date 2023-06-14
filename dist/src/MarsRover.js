@@ -7,27 +7,65 @@ class MarsRover {
         this.y = y;
         this.orientation = orientation;
     }
-    move() {
-        if (this.orientation === 'N') {
-            this.y += 1;
-        }
-        else if (this.orientation === 'E') {
-            this.x += 1;
-        }
-        else if (this.orientation === 'S') {
-            this.y -= 1;
-        }
-        else if (this.orientation === 'W') {
-            this.x -= 1;
+    rotateRight() {
+        switch (this.orientation) {
+            case 'N':
+                this.orientation = 'E';
+                break;
+            case 'E':
+                this.orientation = 'S';
+                break;
+            case 'S':
+                this.orientation = 'W';
+                break;
+            case 'W':
+                this.orientation = 'N';
+                break;
+            default:
+                throw new Error(`Invalid orientation: ${this.orientation}`);
         }
     }
     rotateLeft() {
-        // Implement the logic to rotate the Rover 90 degrees to the left
-        // without changing its position
+        switch (this.orientation) {
+            case 'N':
+                this.orientation = 'W';
+                break;
+            case 'W':
+                this.orientation = 'S';
+                break;
+            case 'S':
+                this.orientation = 'E';
+                break;
+            case 'E':
+                this.orientation = 'N';
+                break;
+            default:
+                throw new Error(`Invalid orientation: ${this.orientation}`);
+        }
     }
-    rotateRight() {
-        // Implement the logic to rotate the Rover 90 degrees to the left
-        // without changing its position
+    moveForward() {
+        switch (this.orientation) {
+            case 'N':
+                this.y += 1;
+                break;
+            case 'E':
+                this.x += 1;
+                break;
+            case 'S':
+                this.y -= 1;
+                break;
+            case 'W':
+                this.x -= 1;
+                break;
+            default:
+                throw new Error(`Invalid orientation: ${this.orientation}`);
+        }
+    }
+    getPosition() {
+        return `${this.x} ${this.y} ${this.orientation}`;
+    }
+    getOrientation() {
+        return this.orientation;
     }
 }
 exports.MarsRover = MarsRover;
