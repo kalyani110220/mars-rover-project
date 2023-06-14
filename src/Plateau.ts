@@ -10,5 +10,9 @@ export class Plateau {
     public isValidPosition(x: number, y: number): boolean {
       return x >= 0 && x <= this.maxX && y >= 0 && y <= this.maxY;
     }
+
+    public getMaxCoordinates(): { maxX: number; maxY: number } {
+        return { maxX: this.maxX, maxY: this.maxY };
+      }
   }
   
