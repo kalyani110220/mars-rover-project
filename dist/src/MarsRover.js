@@ -5,11 +5,15 @@ class MarsRover {
     constructor(x, y, orientation, plateau) {
         this.x = x;
         this.y = y;
-        if (orientation !== 'N' && orientation !== 'S' && orientation !== 'W' && orientation !== 'E') {
+        this.orientation = this.validateOrientation(orientation);
+        this.plateau = plateau;
+    }
+    validateOrientation(orientation) {
+        const validOrientations = ['N', 'S', 'W', 'E'];
+        if (!validOrientations.includes(orientation)) {
             throw new Error(`Invalid orientation: ${orientation}`);
         }
-        this.orientation = orientation;
-        this.plateau = plateau;
+        return orientation;
     }
     rotateRight() {
         switch (this.orientation) {
@@ -90,6 +94,24 @@ class MarsRover {
     }
     getOrientation() {
         return this.orientation;
+    }
+    executeCommands(commands) {
+        for (let i = 0; i < commands.length; i++) {
+            const command = commands[i];
+            switch (command) {
+                case 'L':
+                    this.rotateLeft();
+                    break;
+                case 'R':
+                    this.rotateRight();
+                    break;
+                case 'M':
+                    this.moveForward();
+                    break;
+                default:
+                    throw new Error(`Invalid command: ${command}`);
+            }
+        }
     }
 }
 exports.MarsRover = MarsRover;

@@ -7,7 +7,16 @@ describe('MarsRover', () => {
     beforeEach(() => {
       plateau = new Plateau(5, 5);
     });
-  
+    describe('executeCommands', () => {
+        it('should execute commands correctly', () => {
+          const plateau = new Plateau(5, 5);
+          const rover = new MarsRover(1, 2, 'N', plateau);
+    
+          rover.executeCommands('LMLMLMLMM');
+    
+          expect(rover.getPosition()).toBe('1 3 N');
+        });
+      });
     describe('rotateLeft', () => {
       it('should rotate left from "N" to "W"', () => {
         const rover = new MarsRover(1, 1, 'N', plateau);

@@ -1,20 +1,26 @@
 import { Plateau } from './Plateau';
+import { Orientation } from './Orientation';
 
 export class MarsRover {
     private x: number;
     private y: number;
-    private orientation: 'N' | 'S' | 'W' | 'E';
+    private orientation: Orientation;
     private readonly plateau: Plateau;
 
-    constructor(x: number, y: number, orientation: 'N' | 'S' | 'W' | 'E', plateau: Plateau) {
+    constructor(x: number, y: number, orientation: string, plateau: Plateau) {
       this.x = x;
       this.y = y;
-      if (orientation !== 'N' && orientation !== 'S' && orientation !== 'W' && orientation !== 'E') {
-        throw new Error(`Invalid orientation: ${orientation}`);
-      }
-      this.orientation = orientation;
+      this.orientation = this.validateOrientation(orientation);
       this.plateau = plateau;
     }
+
+    private validateOrientation(orientation: string): Orientation {
+        const validOrientations: Orientation[] = ['N', 'S', 'W', 'E'];
+        if (!validOrientations.includes(orientation as Orientation)) {
+          throw new Error(`Invalid orientation: ${orientation}`);
+        }
+        return orientation as Orientation;
+      }
   
     rotateRight(): void {
       switch (this.orientation) {
@@ -102,5 +108,25 @@ export class MarsRover {
     getOrientation(): 'N' | 'S' | 'W' | 'E' {
       return this.orientation;
     }
+
+    public executeCommands(commands: string): void {
+        for (let i = 0; i < commands.length; i++) {
+          const command = commands[i];
+          switch (command) {
+            case 'L':
+              this.rotateLeft();
+              break;
+            case 'R':
+              this.rotateRight();
+              break;
+            case 'M':
+              this.moveForward();
+              break;
+            default:
+              throw new Error(`Invalid command: ${command}`);
+          }
+        }
+      }
+      
   }
   
